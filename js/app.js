@@ -221,7 +221,7 @@ $(function() {
 			if (!coord) {
 				return null;
 			}
-						return 'https://raw.githubusercontent.com/skyrossm/np-gangmap/master/tiles/' + this.mapType.toLowerCase() + '/' + zoomLevel + '/' + coord.x + '_' + coord.y + '.png';
+						return 'https://raw.githubusercontent.com/Matlik-Official/WKND-interactive-map/assets/tiles/' + this.mapType.toLowerCase() + '/' + zoomLevel + '/' + coord.x + '_' + coord.y + '.png';
 		},
 
 		normalizeCoordinates: function(coord, zoom) {
