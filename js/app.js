@@ -37,10 +37,10 @@ $(function() {
 			var marker = new google.maps.Polygon({
 				paths: polyCoords,
 				strokeColor: '#' + this.get('strokecolor'),
-				strokeOpacity: 0.8,
-				strokeWeight: 2,
+				strokeOpacity: 1,
+				strokeWeight: 1,
 				fillColor: '#' + this.get('fillcolor'),
-				fillOpacity: 0.35,
+				fillOpacity: 0.3,
 				zIndex: this.get('order') || 0,
 			});
 
@@ -84,7 +84,8 @@ $(function() {
 	
 	var LocationsCollection = Backbone.Collection.extend({
 		model: LocationModel,
-		url: 'https://newwkndrp.matlikofficial.com/api/update-locations',
+		url: 'http://127.0.0.1:8000/api/update-locations',
+		// url: 'https://newwkndrp.matlikofficial.com/api/update-locations',
 		
 		parse: function(response) {
 		  	return response.locations;

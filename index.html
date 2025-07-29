@@ -1,17 +1,23 @@
 <!doctype html>
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<title>WKND::Kaart</title>
 	<link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<link rel="stylesheet" href="fontawesome/css/font-awesome.css">
 	<link rel="stylesheet" href="style.css">
 
 	<script src="js/libs/jquery-min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
 	<script src="js/libs/underscore-min.js"></script>
 	<script src="js/libs/backbone-min.js"></script>
 	<script src="js/libs/handlebars.js"></script>
@@ -23,47 +29,43 @@
 
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 </head>
+
 <body>
 	<div id="map" style="background:#143D6B;"></div>
 
 	<script type="x/template" id="markerPopupTemplate2">
-		<div id="info-window" style="max-width:420px;">
+		<div id="info-window" style="max-width:900px; width: fit-content">
 			<div class="scrollable">
-				<span class="header">
+				<div class="header">
 					<h3>{{title}}</h3>
-				</span>
-				<div id="info-body">
-					{{#if notes}}
-						<br>
-						<p class="notes">{{notes}}</p>
-					{{/if}}
-					{{#if video}}
-						<div class="video-{{id}}">
+					{{#if gang.img}}
+						 	<img src="{{gang.img}}" class="infoCardImg">
+				 	{{/if}}
+				</div>
+				<div id="info-body" class="infoCard">
+					<div>
+						{{#if notes}}
 							<br>
-							<h4>Video</h4>
-							<div class="youtubewrapper">
-								<iframe width="100%" src="//www.youtube.com/embed/{{video.yt_id}}?theme=light&amp;autoplay=0&amp;autohide=1&amp;iv_load_policy=3&amp;rel=0&amp;showinfo=0&amp;loop=1{{#if video.start}}&amp;start={{timestampToSeconds video.start}}{{/if}}{{#if video.end}}&amp;end={{timestampToSeconds video.end}}{{/if}}" frameborder="0" allowfullscreen></iframe>
+							<p class="notes">{{notes}}</p>
+						{{/if}}
+						{{#if rivalry}}
+							<div class="rivalryContainerParent">
+								<div class="rivalryContainer">
+									<div class="{{#if rivalry.attacker_is_leading}}green-text{{else}}red-text{{/if}}">
+										<img src="{{rivalry.attackers_data.img}}" alt="">
+                        				{{rivalry.attackers_data.label}}
+                    				</div>
+                    				<span>VS</span>
+                    				<div class="{{#if rivalry.defender_is_leading}}green-text{{else}}red-text{{/if}}">
+                    				    {{rivalry.defenders_data.label}}
+										<img src="{{rivalry.defenders_data.img}}" alt="">
+                    				</div>
+								</div>
+								<p>(ATTACKER <span>VS</span> DEFENDER )</p>
 							</div>
-							{{#if video.yt_user_link}}
-								<p>
-									<a href="//www.youtube.com/{{video.yt_user_link}}" style="color:#222;font-size:.8em;float:right;" target="_blank">
-										Video by {{video.yt_user_display}}
-									</a>
-								</p>
-							{{/if}}
-						</div>
-					{{/if}}
-					{{#if images}}
-						<br>
-				 		<h4>Images</h4>
-					{{/if}}
-					{{#each images}}
-						<div class="image-{{id}}">
-						 	<span>{{headline}}</span>
-						 	<img src="{{url}}" class="image-{{id}}">
-						</div>
-						<br>
-				 	{{/each}}
+						{{/if}}
+					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -73,4 +75,5 @@
 
 	<div id="types" class="types"></div>
 </body>
+
 </html>
