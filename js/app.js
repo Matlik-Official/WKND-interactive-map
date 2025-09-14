@@ -22,6 +22,25 @@ $(function() {
 	Handlebars.registerHelper('ifEquals', function(arg1, arg2, options) {
 		return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 	});
+	
+	// Helper to convert YouTube URLs to embed format
+	Handlebars.registerHelper('youtubeEmbed', function(url) {
+		if (!url) return '';
+		
+		// Handle youtube.com/watch?v= format
+		var watchMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/);
+		if (watchMatch) {
+			return 'https://www.youtube.com/embed/' + watchMatch[1];
+		}
+		
+		// Handle youtube.com/embed/ format (already correct)
+		if (url.includes('youtube.com/embed/')) {
+			return url;
+		}
+		
+		// Return original URL if not YouTube
+		return url;
+	});
 
 	var Vent = _.extend({}, Backbone.Events);
 
@@ -84,7 +103,8 @@ $(function() {
 	
 	var LocationsCollection = Backbone.Collection.extend({
 		model: LocationModel,
-		url: 'https://wkndrp.ee/api/update-locations',
+		url: 'http://127.0.0.1:8000/api/update-locations',
+		// url: 'https://wkndrp.ee/api/update-locations',
 		
 		parse: function(response) {
 		  	return response.locations;
