@@ -103,8 +103,8 @@ $(function() {
 	
 	var LocationsCollection = Backbone.Collection.extend({
 		model: LocationModel,
-		url: 'http://127.0.0.1:8000/api/update-locations',
-		// url: 'https://wkndrp.ee/api/update-locations',
+		// url: 'http://127.0.0.1:8000/api/update-locations',
+		url: 'https://wkndrp.ee/api/update-locations',
 		
 		parse: function(response) {
 		  	return response.locations;
